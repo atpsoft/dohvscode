@@ -2,8 +2,8 @@
   "name": "dohvscode",
   "displayName": "dohvscode",
   "description": "VSCode utilities for doh users",
-  "publisher": "microsoft@atpsoft.com",
-  "version": "0.0.1",
+  "publisher": "ATPSoft",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.69.0"
   },

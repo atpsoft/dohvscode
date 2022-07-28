@@ -27,11 +27,6 @@ export function activate(context: vscode.ExtensionContext) {
     } else {
       dbg.appendLine('no open file, not diffing');
     }
-
-
-    // The code you place here will be executed every time your command is executed
-    // Display a message box to the user
-    vscode.window.showInformationMessage('external diff launched via terminal');
   });
 
   context.subscriptions.push(disposable);
