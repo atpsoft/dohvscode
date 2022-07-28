@@ -2,6 +2,7 @@
   "name": "dohvscode",
   "displayName": "dohvscode",
   "description": "VSCode utilities for doh users",
+  "publisher": "microsoft@atpsoft.com",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.69.0"
@@ -41,5 +42,9 @@
     "mocha": "^10.0.0",
     "typescript": "^4.7.4",
     "@vscode/test-electron": "^2.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atpsoft/dohvscode.git"
   }
 }
