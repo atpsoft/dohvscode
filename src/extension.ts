@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 import * as stream from "stream";
 
 let dbg = vscode.window.createOutputChannel("dohvscode");
+const terminal = vscode.window.createTerminal(`Ext Terminal difftool`);
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -11,28 +12,26 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Use the console to output diagnostic information (dbg.appendLine) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
-  dbg.appendLine('Congratulations, your extension "dohvscode" is now active!');
+  dbg.appendLine('Congratulations, your extension "dohvscode" is now active with terminal!');
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand('dohvscode.externaldiff', () => {
-    const cp = require('child_process');
-    dbg.appendLine('cwd: ' + process.cwd());
-    process.chdir('/Users/kem/src/atp/listsdb/');
-    dbg.appendLine('cwd should be listsdb: ' + process.cwd());
+    let currentWindow = vscode.window.activeTextEditor;
+    if (currentWindow) {
+      let file = currentWindow.document.uri.fsPath;
+      let dir = currentWindow.document.uri.path;
+      dbg.appendLine('calling difftool via terminal with open file: ' + currentWindow.document.uri.fsPath + ' using dir: ' + dir);
+      terminal.sendText("cd " + dir + "; git difftool -- " + file);
+    } else {
+      dbg.appendLine('no open file, not diffing');
+    }
 
-    cp.exec('/usr/bin/git difftool', (err: stream.Readable, stdout: stream.Readable, stderr: stream.Readable) => {
-      dbg.appendLine('stdout: ' + stdout);
-      dbg.appendLine('stderr: ' + stderr);
-      if (err) {
-        dbg.appendLine('error: ' + err);
-      }
-    });
 
     // The code you place here will be executed every time your command is executed
     // Display a message box to the user
-    vscode.window.showInformationMessage('external diff launched');
+    vscode.window.showInformationMessage('external diff launched via terminal');
   });
 
   context.subscriptions.push(disposable);
